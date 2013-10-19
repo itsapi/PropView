@@ -1,9 +1,9 @@
 <?
-	set_include_path('/var/www/webDesign/PropView');
+	set_include_path('/var/www/PropView');
 	include 'include/config.php';
 
 	$mailDir = '/var/www/phpmailer/class.phpmailer.php';
-	$domain = 'http://dvbris.no-ip.org/webDesign/PropView';
+	$domain = 'http://dvbris.no-ip.org/PropView';
 
 	if (mysqli_connect_errno($mysqli)){
 		printf("Connect failed: %s\n", mysqli_connect_error());

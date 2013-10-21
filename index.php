@@ -1,9 +1,11 @@
 <?
 	$msg = '';
 	include 'include/functions.php';
+	// Delete cookie if the URL ends with ?logout
 	if (isset($_GET['logout'])){
 		setcookie('user', '', time()-60000);
 	}
+	// Redirect the user to the appropriate page if they are logged in
 	if (isset($_COOKIE['user'])){
 		if ($_COOKIE['user'] == 'admin'){
 			header('location: admin.php');
@@ -11,6 +13,7 @@
 			header('location: user.php');
 		}
 	}
+	// Validate user login details
 	if (isset($_POST['login'])){
 		$username = addslashes($_POST['username']);
 		$password = addslashes($_POST['password']);

@@ -1,5 +1,5 @@
 <?
-	//Set path variables and include credentials file
+	// Set path variables and include credentials file
 	set_include_path('/var/www/PropView');
 	include 'include/config.php';
 
@@ -7,12 +7,12 @@
 	$domain = 'http://dvbris.no-ip.org/PropView';
 	$gmail = false;
 
-	//Set up MySQL database connection
+	// Set up MySQL database connection
 	if (mysqli_connect_errno($mysqli)){
 		printf("Connect failed: %s\n", mysqli_connect_error());
 	}
 
-	//Runs MySQL query on the database from a query parameter and returns the result
+	// Runs MySQL query on the database from a query parameter and returns the result
 	function query_DB($query){
 		$result = mysqli_query($GLOBALS['mysqli'], $query);
 		if (!$result) {
@@ -23,17 +23,17 @@
 		}
 	}
 
-	//Obtain user data for cookie
+	// Obtain user data for cookie
 	if (isset($_COOKIE['user'])){
 		$userData = getUserData('username', $_COOKIE['user']);
 	}
 
-	//Returns an array with user data from database using a given column name and value
+	// Returns an array with user data from database using a given column name and value
 	function getUserData($name, $value){
 		return mysqli_fetch_assoc(query_DB("SELECT * FROM users WHERE {$name}='{$value}'"));
 	}
 
-	//Builds and sends an email using either Gmail SMTP or the standard PHP mail()
+	// Builds and sends an email using either Gmail SMTP or the standard PHP mail()
 	function email($to, $from, $subject, $message) {
 		if ($gmail) {
 

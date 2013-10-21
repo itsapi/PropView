@@ -1,17 +1,25 @@
 <?
 	$msg = '';
 	include 'include/functions.php';
+
+	// Determine which properties to show
+
+	// If a pid is supplied show this property
 	if (isset($_GET['pid'])){
 		$queryExt = " WHERE id='{$_GET['pid']}'";
 	} else {
 		if (isset($_COOKIE['user'])){
 			if ($userData['admin']){
+				/* If user is admin and a uid is supplied show
+				 * properties from that user, otherwise show all
+				 * properties */
 				if (isset($_GET['uid'])){
 					$queryExt = " WHERE uid='{$_GET['uid']}'";
 				} else {
 					$queryExt = "";
 				}
 			} else {
+				// If user isn't admin, show properties of current user
 				$queryExt = " WHERE uid='{$userData['id']}'";
 			}
 		} else {
@@ -42,6 +50,7 @@
 			</section>
 			<section id="right">
 <?
+	// Show single property
 	if (isset($_GET['pid'])) {
 		$row = mysqli_fetch_assoc($result);
 		$data = json_encode($row);
@@ -65,21 +74,31 @@
 				break;
 		}
 					?></p>
-					<?= (!$row['approved'] && $userData['admin']) ? "<form class=\"pure-form pure-form-stacked approveProp\">
+					<?
+					/* Show approve button if user is admin and
+					 * property is not approved */
+					echo (!$row['approved'] && $userData['admin']) ? "<form class=\"pure-form pure-form-stacked approveProp\">
 						<fieldset>
 							<button type=\"submit\" class=\"pure-button\">APPROVE</button>
 						</fieldset>
-					</form>" : '' ?>
-					<?= (isset($userData) && $userData['admin']) ? "<form class=\"pure-form pure-form-stacked deleteProp\">
+					</form>" : '';
+					?>
+					<?
+					// Show delete button if user is admin
+					echo (isset($userData) && $userData['admin']) ? "<form class=\"pure-form pure-form-stacked deleteProp\">
 						<fieldset>
 							<button type=\"submit\" class=\"pure-button\">DELETE</button>
 						</fieldset>
-					</form>" : '' ?>
-					<?= (isset($userData) && $userData['admin']) ? "<form class=\"pure-form pure-form-stacked getID\">
+					</form>" : '';
+					?>
+					<?
+					// Show get ID button if user is admin
+					echo (isset($userData) && $userData['admin']) ? "<form class=\"pure-form pure-form-stacked getID\">
 						<fieldset>
 							<button type=\"submit\" class=\"pure-button\">GET ID</button>
 						</fieldset>
-					</form>" : '' ?>
+					</form>" : '';
+					?>
 					<form class="pure-form pure-form-stacked map">
 						<fieldset>
 							<button type="submit" class="pure-button">MAP</button>
@@ -97,6 +116,7 @@
 					<h5>Description:</h5>
 				</div>
 <?
+	// Show list of properties
 	} else {
 ?>
 				<ul id="results">
@@ -124,7 +144,10 @@
 					break;
 			}
 						?></p>
-						<?= (!$row['approved']) ? '<p class="subscription"><em>PENDING</em></p>' : '' ?>
+						<?
+						// Show PENDING if property not approved
+						echo (!$row['approved']) ? '<p class="subscription"><em>PENDING</em></p>' : '';
+						?>
 						<p class="first-line"><?=$row['buildings']?> Buildings | <?=$row['size']?> Sq Ft</p>
 						<p>Date added <?=$row['added']?> | Last updated <?=$row['updated']?></p>
 						<p class="forth-line">Owner: <?

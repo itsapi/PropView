@@ -1,6 +1,7 @@
 <?
 	$msg = '';
 	include 'include/functions.php';
+	// Validate contact form when submitted
 	if (isset($_POST['submit'])){
 		if ($_POST['name'] == '' || $_POST['email'] == '' || $_POST['message'] == ''){
 			$msg .= 'Inputs must not be empty';
@@ -28,13 +29,13 @@
 		<title>PropView</title>
 		<? include 'include/head.php' ?>
 		<link rel="stylesheet" href="css/contact.css">
-	</head>
-	<body>
-		<div id="container">
 			<? include 'include/header.php' ?>
 			<section id="right">
 				<div id="contact_container">
 					<figure>
+	</head>
+	<body>
+		<div id="container">
 						<a href="index.php"><img src="files/logo.png" id="logo" alt="PropView Logo"></a>
 						<figcaption>Virtual Property Supervision</figcaption>
 					</figure>

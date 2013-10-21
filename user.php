@@ -1,6 +1,7 @@
 <?
 	$msg = '';
 	include 'include/functions.php';
+	// Only show page if user is logged in and is not amdin
 	if (isset($_COOKIE['user']) && !$userData['admin']){
 ?>
 
